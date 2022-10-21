@@ -4,6 +4,8 @@
  * @returns {Promise<2>} Promise of the given time 
  */
 export const delay = (time = 10) => {
+    //<----------------------------------Delay Function---------------------------------->
+
     return new Promise((r, _) => setTimeout(() =>r(2), time))
 }
 /**
@@ -12,6 +14,8 @@ export const delay = (time = 10) => {
  * @returns {string} Formatted Time in Seconds
  */
 export function onlySecondDuration(duration) {
+    //<----------------------------------onlySecondDuration Function---------------------------------->
+
     const time = Math.floor(duration / 1000 * 100) / 100;
     return `${time} Sec${time !== 1 ? "s" : ""}`
 }
@@ -21,6 +25,7 @@ export function onlySecondDuration(duration) {
  * @returns {string} Returns string of number less then 10 formatted to 2 letters long
  */
 export const set2string = (n) => {
+    //<----------------------------------Convert function---------------------------------->
     if(!n) return "00"; // Returning so it doesn't crash
 
     return (n < 10 ? '0' : '') + n;
@@ -32,6 +37,9 @@ export const set2string = (n) => {
  * @returns {string} formatted Millisconds in a length of 3
  */
 export const formatMS = (n) => {
+//<----------------------------------Logger Level---------------------------------->
+
+
     if(!n) return "000"; // Returning so it doesn't crash
     return n + (Number(n) < 100 ? '0' : ''); 
 }
@@ -42,6 +50,7 @@ export const formatMS = (n) => {
  * @returns {string} Time Formatted as: "ddd DD-MM-YYYY HH:mm:ss.SSSS"
  */
 export const getDateTimeString = (timestamp = Date.now()) => {
+    //<----------------------------------Get Tine Stamp in Strings---------------------------------->
     const date = new Date(timestamp);
     const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     const DD = set2string(date.getDate()); //The Day
@@ -95,6 +104,7 @@ export const Second = {
  * @returns {string} formatted duration time
  */
 const formatDuration = (value, inputAsMs) => {
+   
     let times = [86400, 3600, 60, 1];
     if(inputAsMs) times = [...times.map(x => x * 1000), 1] 
     return times.reduce((acc, cur) => {
