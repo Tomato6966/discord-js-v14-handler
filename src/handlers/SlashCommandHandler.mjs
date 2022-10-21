@@ -2,11 +2,14 @@ import { EmbedBuilder } from "@discordjs/builders";
 import { Collection, resolveColor } from "discord.js";
 import { cooldownCategories, cooldownCategoriesHigh, cooldownCommands, cooldownCommandsHigh, defaultCooldownMs, defaultCooldownMsHigh, maximumCoolDownCommands } from "../data/Cooldowns.mjs";
 import { onlySecondDuration } from "../utils/TimeUtils.mjs";
+//<-----------------Imported Modules----------------->
 
 /** 
  * @param {import("../structures/BotClient.mjs").BotClient} client
  * @param {import("discord.js").CommandInteraction} interaction
-*/
+*
+//<----------------------------------(/) cmd handler---------------------------------->
+
 export async function slashCommandHandler(client, interaction) {
 
     // SOON: Ensure Languags
