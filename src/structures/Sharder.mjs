@@ -1,7 +1,10 @@
 import { ClusterManager } from 'discord-hybrid-sharding';
 const validModes = [ "process", "worker" ];
-
+//<-----------------Imported Modules----------------->
 /** @returns {"auto"|number} totalShards for ClusterManager, must be bigger than 0, default: "auto" */
+
+
+//<----------------------------------Getting Data from env---------------------------------->
 const getTotalShards = () => {
     if(!process.env.TOTAL_SHARDS) return "auto";
     if(process.env.TOTAL_SHARDS.toLowerCase() === "auto") return "auto";
@@ -14,6 +17,7 @@ const getShardsPerCluster = () => !isNaN(process.env.SHARDS_PER_CLUSTER) && Numb
 
 /** @returns {"process"|"worker"} mode for ClusterManager, default: "process" */
 const getShardingMode = () => process.env.SHARDING_MODE && validModes.includes(process.env.SHARDING_MODE.toLowerCase()) ? process.env.SHARDING_MODE : 'process'
+//<----------------------------------Createing Cluster Manager---------------------------------->
 
 export const CreateManager = () => {
     const manager = new ClusterManager(`${process.cwd()}/src/bot.mjs`, {
@@ -23,6 +27,11 @@ export const CreateManager = () => {
         token: process.env.DISCORD_TOKEN,
     });
     
+    
+//<----------------------------------message event ---------------------------------->
+
+
+
     manager.on('clusterCreate', cluster => {
         // cluster.on("message", async (message) => {});
         
