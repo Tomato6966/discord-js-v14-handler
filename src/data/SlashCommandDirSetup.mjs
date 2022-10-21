@@ -1,4 +1,5 @@
 import { PermissionFlagsBits, PermissionsBitField } from "discord.js";
+//<-----------------Imported Modules----------------->
 
 // for each folder inside of /commands, you need to define a dirSetup.
 // that's how to define permissions for all commands inside of that folder.
