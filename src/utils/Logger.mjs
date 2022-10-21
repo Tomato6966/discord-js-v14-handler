@@ -1,5 +1,7 @@
 import { validColors, validColorsStrings } from "../data/ValidColors.mjs";
 import { getDateTimeString } from "./TimeUtils.mjs";
+//<-----------------Imported Modules----------------->
+
 /**
  * @param {validColors} Colordisplay Valid Color for the Console
  * @param {string} text Text to log and display
@@ -30,6 +32,8 @@ export const color_log = (Colordisplay = ["FgGreen"], text = "No Text added", da
         color, ...text, validColors.Reset
     );
 }
+//<----------------------------------||Creating Logger||---------------------------------->
+
 
 
 export class Logger {
@@ -42,6 +46,8 @@ export class Logger {
         this.dateEnabled = options.dateEnabled ?? true;
         this.logLevel = options.logLevel ?? (process.env.LOGLEVEL || 1);
     }
+    //<----------------------------------Logger Level---------------------------------->
+
     debug(...text) {
         if(this.logLevel > 0) return;
         return color_log(["Dim"], text, this.dateEnabled, this.prefix && typeof this.prefix === "string" ? `Debug  - ${this.prefix}` : "Debug")
