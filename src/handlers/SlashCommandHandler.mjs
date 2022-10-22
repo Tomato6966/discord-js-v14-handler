@@ -38,7 +38,7 @@ export async function slashCommandHandler(client, interaction) {
 
 /** @param {import("discord.js").CommandInteraction} interaction */
 export function parseSlashCommandKey(interaction) {
-    const keys = ["slashCmd", interaction.commandName];
+    const keys = ["slashcmd", interaction.commandName];
     if(interaction.options._subcommand) { keys.push(`${interaction.options._subcommand}`); keys[0] = "subcmd"; }
     if(interaction.options._group) { keys.splice(1, 0, `${interaction.options._group}`); keys[0] = "groupcmd"; }
     return keys.join("_");
