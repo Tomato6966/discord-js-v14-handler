@@ -2,9 +2,17 @@ import { Client, GatewayIntentBits, Partials, ActivityType, PresenceUpdateStatus
 import { ClusterClient, getInfo } from "discord-hybrid-sharding";
 import { Second } from "../utils/TimeUtils.mjs"; 
 import { promises } from "fs";
-import { join, resolve } from "path";
+import { join, resolve, basename } from "path";
 import { color_log, Logger } from "../utils/Logger.mjs";
 import { dirSetup } from "../data/SlashCommandDirSetup.mjs";
+import { pathToFileURL } from "url";
+
+
+/**
+ * @param {string} path GLOBAL path object
+ * @returns {string} windows and linux supported paths
+ */
+export const globalFilePath = (path) => pathToFileURL(path)?.href || path;
 
 export class BotClient extends Client {
     constructor(options = {}) {
@@ -56,7 +64,7 @@ export class BotClient extends Client {
             const paths = await walks(`${process.cwd()}/src/extenders`);
             await Promise.all(
                 paths.map(async (path) => {
-                    const extender = await import(resolve(path)).then(x => x.default)
+                    const extender = await import(globalFilePath(resolve(path))).then(x => x.default)
                     this.logger.debug(`✅ Extender Loaded: ${resolve(path).split("/").reverse()[0].replace(".mjs", "").replace(".js", "")}`);
                     return extender(this);
                 })
@@ -72,7 +80,7 @@ export class BotClient extends Client {
             const paths = await walks(`${process.cwd()}/src/events`);
             await Promise.all(
                 paths.map(async (path) => {
-                    const event = await import(resolve(path)).then(x => x.default)
+                    const event = await import(globalFilePath(resolve(path))).then(x => x.default)
                     const splitted = resolve(path).split("/")
                     const eventName = splitted.reverse()[0].replace(".mjs", "").replace(".js", "");
                     this.eventPaths.set(eventName, { eventName, path: resolve(path) });
@@ -130,7 +138,7 @@ export class BotClient extends Client {
                                 const commands = {}
                                 for (let sFile of slashCommands) {
                                     const groupCurPath = `${groupPath}/${sFile}`;
-                                    commands[sFile] = await import(groupCurPath).then(x => x.default);
+                                    commands[sFile] = await import(globalFilePath(groupCurPath)).then(x => x.default);
                                 }
                                 subSlash.addSubcommandGroup(Group => {
                                     Group.setName(groupDirSetup.name.toLowerCase()).setDescription(groupDirSetup.description || "Temp_Desc");
@@ -174,7 +182,7 @@ export class BotClient extends Client {
                         }
                         // if it's /commands/slash/XYZ/cmd.js
                         else {
-                            const command = await import(curPath).then(x => x.default);
+                            const command = await import(globalFilePath(curPath)).then(x => x.default);
                             if (!command.name) {
                                 this.logger.error(`${curPath} not containing a Command-Name`);
                                 continue;
@@ -204,7 +212,7 @@ export class BotClient extends Client {
                 }
                 else {
                     const curPath = `${process.cwd()}${path}/${dir}`;
-                    const command = await import(curPath).then(x => x.default);
+                    const command = await import(globalFilePath(curPath)).then(x => x.default);
                     if (!command.name) {
                         this.logger.error(`${curPath} not containing a Command-Name`);
                         continue;
