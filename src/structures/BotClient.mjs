@@ -65,7 +65,8 @@ export class BotClient extends Client {
             await Promise.all(
                 paths.map(async (path) => {
                     const extender = await import(globalFilePath(resolve(path))).then(x => x.default)
-                    this.logger.debug(`✅ Extender Loaded: ${resolve(path).split("/").reverse()[0].replace(".mjs", "").replace(".js", "")}`);
+                    const name = resolve(path).includes("\\") ? resolve(path).split("\\").reverse()[0] : resolve(path).split("/").reverse()[0];
+                    this.logger.debug(`✅ Extender Loaded: ${name.replace(".mjs", "").replace(".js", "")}`);
                     return extender(this);
                 })
             );
@@ -81,7 +82,7 @@ export class BotClient extends Client {
             await Promise.all(
                 paths.map(async (path) => {
                     const event = await import(globalFilePath(resolve(path))).then(x => x.default)
-                    const splitted = resolve(path).split("/")
+                    const splitted =  resolve(path).includes("\\") ? resolve(path).split("\\") : resolve(path).split("/")
                     const eventName = splitted.reverse()[0].replace(".mjs", "").replace(".js", "");
                     this.eventPaths.set(eventName, { eventName, path: resolve(path) });
                     this.logger.debug(`✅ Event Loaded: ${eventName}`);
