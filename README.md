@@ -48,5 +48,5 @@ Inside of a Folder of a Folder of `/src/commands`, e.g: `/src/commands/Info/User
 
 **NOTE:** For Every folder you create inside of `/src/commands`, you need to write the DirSetup object in: `/src/data/SlashCommandDirSetup.mjs`
 
- - This Project is a `module` aka written in `esm`, so your JS Files should be named: `*.jsm`
+ - This Project is a `module` aka written in `esm`, so your JS Files should be named: `*.mjs`
 
