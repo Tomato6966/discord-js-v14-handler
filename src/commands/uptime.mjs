@@ -8,7 +8,7 @@ export default {
     async execute(client, interaction) {
         await interaction.reply({
             ephemeral: true,
-            content: `🏓 I'm running since <t:${Math.floor((Date.now() + client.uptime) / 1000)}:R>`
+            content: `🏓 I'm running since <t:${Math.floor((Date.now() - client.uptime) / 1000)}:R>`
         });
     }
 }
