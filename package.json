@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/Tomato6966/discord-js-v14-handler#readme",
   "dependencies": {
-    "discord-hybrid-sharding": "github:meister03/discord-hybrid-sharding",
+    "discord-hybrid-sharding": "^2.1.3",
     "discord.js": "^14.6.0",
     "dotenv": "^16.0.3"
   }
